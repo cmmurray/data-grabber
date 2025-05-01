@@ -22,10 +22,27 @@ Data Grabber is designed from the ground up with security as the primary concern
 
 ## Supported Services
 
+- **Twitter/X**: Download and analyze your Twitter profile, tweets, followers, and more
 - **Gmail Data** (from Google Takeout): Analyze your email data with complete privacy
 - More services coming soon!
 
 ## Usage Examples
+
+### Twitter Analysis
+
+```bash
+# Install dependencies
+npm install
+
+# Add your Twitter API credentials to .env
+# See .env.example for required credentials
+
+# Run Twitter analysis on your account
+node examples/twitter-analysis.js your_username
+
+# Results are saved to data/twitter-analysis/your_username/twitter-analysis-results.json
+# All raw Twitter data is securely destroyed after analysis
+```
 
 ### Gmail Analysis
 
@@ -65,6 +82,10 @@ Data Grabber implements multiple layers of security:
 - **Memory Protection**: Zeros memory after use and prevents memory dumps
 
 For a detailed explanation of the security architecture, see [SECURITY_ARCHITECTURE.md](docs/SECURITY_ARCHITECTURE.md).
+
+## Service-Specific Documentation
+
+- [Twitter Integration Guide](docs/TWITTER_INTEGRATION.md)
 
 ## Contributing
 
