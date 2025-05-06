@@ -7,12 +7,14 @@
     "test": "jest",
     "lint": "eslint .",
     "start": "node src/index.js",
-    "integuru": "electron src/integuru/index.js",
-    "dev": "NODE_ENV=development electron src/integuru/index.js",
-    "build": "electron-builder",
-    "build:mac": "electron-builder --mac",
-    "build:win": "electron-builder --win",
-    "build:linux": "electron-builder --linux"
+    "build:ui": "webpack",
+    "watch:ui": "webpack --watch",
+    "integuru": "npm run build:ui && electron src/integuru/index.js",
+    "dev": "NODE_ENV=development npm run build:ui && electron src/integuru/index.js",
+    "build": "npm run build:ui && electron-builder",
+    "build:mac": "npm run build:ui && electron-builder --mac",
+    "build:win": "npm run build:ui && electron-builder --win",
+    "build:linux": "npm run build:ui && electron-builder --linux"
   },
   "keywords": [
     "data",
@@ -23,19 +25,28 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.8.1",
     "electron": "^36.0.1",
     "electron-builder": "^26.0.12",
     "eslint": "^8.47.0",
-    "jest": "^29.6.2"
+    "jest": "^29.6.2",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.1"
   },
   "dependencies": {
     "axios": "^1.4.0",
     "commander": "^11.0.0",
+    "core-js": "^3.36.0",
     "dotenv": "^16.3.1",
     "playwright": "^1.52.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.5.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0"
   },
   "build": {
     "appId": "com.datgrabber.app",

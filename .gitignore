@@ -13,6 +13,7 @@ package-lock.json
 # Build output
 dist/
 build/
+src/integuru/renderer/app.js
 
 # Logs
 logs/

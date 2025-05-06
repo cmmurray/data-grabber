@@ -29,8 +29,9 @@ function createWindow() {
     }
   });
 
-  // Load the index.html file
-  mainWindow.loadFile(path.join(__dirname, 'renderer', 'index.html'));
+  // Load the direct HTML file for testing
+  console.log('Loading page from:', path.join(__dirname, 'renderer', 'direct.html'));
+  mainWindow.loadFile(path.join(__dirname, 'renderer', 'direct.html'));
 
   // Open DevTools in development mode
   if (process.env.NODE_ENV === 'development') {
@@ -67,6 +68,37 @@ ipcMain.handle('capture-network-requests', async (event, options) => {
     return { success: true, data: result };
   } catch (error) {
     console.error('Error capturing network requests:', error);
+    return { success: false, error: error.message };
+  }
+});
+
+// Handle OpenAI integration for code generation
+ipcMain.handle('generate-integration-code', async (event, { harData, description, model }) => {
+  try {
+    const { generateIntegrationCode } = require('./openai-integration');
+    
+    console.log('Generating integration code with:', { 
+      description,
+      model: model || 'gpt-4o',
+      harDataSize: harData ? 'Provided' : 'Not provided' 
+    });
+    
+    // For now, we'll return a mock result to avoid making API calls
+    return { 
+      success: true, 
+      data: {
+        code: '# Generated code would appear here\nprint("Hello from generated integration")',
+        language: 'python',
+        description,
+        timestamp: new Date().toISOString()
+      }
+    };
+    
+    // Commented out to avoid making real API calls during testing
+    // const result = await generateIntegrationCode({ harPath, description, model });
+    // return { success: true, data: result };
+  } catch (error) {
+    console.error('Error generating integration code:', error);
     return { success: false, error: error.message };
   }
 });
